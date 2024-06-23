@@ -19,9 +19,9 @@ class AWB(models.Model):
     sla_report = models.BooleanField(default=False)
     top_20_report = models.BooleanField(default=False)
     priority_report = models.BooleanField(default=False)
-    sent_awb_indication = models.BooleanField(default=False)
-    new_awb_indication = models.BooleanField(default=False)
-    partial_indication = models.BooleanField(default=False)
+    sent_awb = models.BooleanField(default=False)
+    new_awb = models.BooleanField(default=False)
+    partial_sent_awb = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.awb_number)
