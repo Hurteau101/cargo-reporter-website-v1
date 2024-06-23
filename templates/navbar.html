@@ -3,5 +3,35 @@
         <a href="{% url 'report-importer' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" >
             <span class="fs-4">Cargo Reports</span>
         </a>
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-ashgray" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Reports
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item text-ashgray" href="#">Report Uploader</a></li>
+                    <li><a class="dropdown-item text-ashgray" href="#">Top 20</a></li>
+                    <li><a class="dropdown-item text-ashgray" href="#">SLA</a></li>
+                    <li><a class="dropdown-item text-ashgray" href="#">Priority</a></li>
+                    <li><a class="dropdown-item text-ashgray" href="#">Load Factor</a></li>
+                </ul>    
+            </li>
+            
+            <li class="nav-item"><a href="#" class="nav-link text-ashgray">Freighters</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-ashgray">Data Controller</a></li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-ashgray" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    AWBs
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item text-ashgray" href="#">AWB Tracker</a></li>
+                    <li><a class="dropdown-item text-ashgray" href="#">New AWBs</a></li>
+                    <li><a class="dropdown-item text-ashgray" href="#">Sent AWBs</a></li>
+                </ul>    
+            </li>
+            
+            <li class="nav-item"><a href="#" class="nav-link text-ashgray">Logout</a></li>
+        </ul>
     </header>
 </div>

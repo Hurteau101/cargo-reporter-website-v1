@@ -102,6 +102,7 @@
 .bg-gray-color {
     background-color: #265498;
 }
+
 .bg-gray-color:hover {
     background-color: #1b3b6b;
 }
@@ -128,3 +129,4 @@
     background-color: blue;
     // etc.
 }
+
