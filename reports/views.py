@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import UploaderForm
-
+from .excel_utils import *
+from .database_utils import *
 
 # Create your views here.
 def report_importer(request):
@@ -13,6 +14,15 @@ def report_importer(request):
             file_name = request.FILES.get('file')
             if file.is_valid():
                 read_file = request.FILES['file']
+                valid_report, data = extract_waybills_to_ship_file(read_file)
+                if valid_report:
+                    sla_top_20_save(data)
+                else:
+                    error_message = (f"{file_name} - Wrong Report. Please ensure this is either "
+                                     f"Waybills to Ship or Bot Report")
+
+
+
             else:
                 "File extension “png” is not allowed. Allowed extensions are: xlsx."
                 if "".join(file.errors['file'].as_data()[0]) == "The submitted file is empty.":
