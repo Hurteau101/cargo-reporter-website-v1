@@ -9,12 +9,28 @@
                     Reports
                 </a>
                 <ul class="dropdown-menu">
-                    {% if '' in request.path %}
-                        <li><a class="dropdown-item text-ashgray" href="#"><i class="fa-solid fa-arrow-right"></i> Report Uploader</a></li>
+                    {% if request.path == '/' %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'report-importer' %}">
+                                <i class="fa-solid fa-arrow-right"></i> Report Uploader</a>
+                        </li>
                     {% else %}
-                        <li><a class="dropdown-item text-ashgray" href="#">Report Uploader</a></li>
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'report-importer' %}">Report Uploader</a>
+                        </li>
                     {% endif %}
-                    <li><a class="dropdown-item text-ashgray" href="#">Top 20</a></li>
+                
+                    {% if 'top-20' in request.path %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'top-20' %}">
+                                <i class="fa-solid fa-arrow-right"></i> Top 20</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'top-20' %}">Top 20</a>
+                        </li>
+                    {% endif %}
+                
                     <li><a class="dropdown-item text-ashgray" href="#">SLA</a></li>
                     <li><a class="dropdown-item text-ashgray" href="#">Priority</a></li>
                     <li><a class="dropdown-item text-ashgray" href="#">Load Factor</a></li>

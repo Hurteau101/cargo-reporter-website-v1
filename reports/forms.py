@@ -1,8 +1,7 @@
 from django import forms
 from django.core.validators import FileExtensionValidator
-from django.core.exceptions import ValidationError
 import magic
-
+from .models import AWB
 
 class UploaderForm(forms.Form):
     file = forms.FileField(
@@ -32,3 +31,11 @@ class UploaderForm(forms.Form):
 
         return cleaned_data
 
+class RemarkForm(forms.ModelForm):
+    class Meta:
+        model = AWB
+        fields = ["remarks"]
+
+    def __init__(self, *args, **kwargs):
+        super(RemarkForm, self).__init__(*args, **kwargs)
+        self.fields['remarks'].widget.attrs = {'class': 'form-control'}

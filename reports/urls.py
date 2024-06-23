@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.report_importer, name='report-importer'),
+    path('top-20', views.top_20, name='top-20'),
 ]

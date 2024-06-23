@@ -1,0 +1,8 @@
+<td>
+    {% for field in remark_form %}
+        <div class="">
+            {{ field }}
+        </div>
+    {% endfor %}
+    <button type="submit" name="save" value="{{ form.instance.awb_number }}">Save</button>
+</td>
