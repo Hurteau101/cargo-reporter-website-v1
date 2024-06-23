@@ -1,0 +1,42 @@
+<div class="text-left mb-3">
+    <span class="badge hidden-span">&nbsp;</span>
+</div>
+<table class="table table-borderless table-striped table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>AWB</th>
+            <th>Description</th>
+            <th>Consignee</th>
+            <th>Pieces</th>
+            <th>Weight</th>
+            <th>Priority</th>
+            <th>Hours</th>
+            <th>Days</th>
+            <th>Remarks</th>
+            <th>Sent</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if not past_sla_data %}
+            <tr><td class="text-center" colspan="12">No Data</td></tr>
+        {% elif request.path == '/sla'%}
+            <tr><td class="text-center" colspan="12">Please select a destination</td></tr>
+        {% else %}
+            {% for destination_details in breakdown %}
+                <tr>
+                    <td class="fw-bold align-middle">{{ forloop.counter }}</td>
+                    <td>{{ destination_details.awb_number }}</td>
+                    <td>{{ destination_details.description }}</td>
+                    <td>{{ destination_details.consignee }}</td>
+                    <td>{{ destination_details.pieces_on_hand }}</td>
+                    <td>{{ destination_details.weight_on_hand }}</td>
+                    <td>{{ destination_details.priority }}</td>
+                    <td>{{ destination_details.hours_remaining }}</td>
+                    <td>{{ destination_details.days }}</td>
+                    <td>{{ destination_details.remarks|default_if_none:"" }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>

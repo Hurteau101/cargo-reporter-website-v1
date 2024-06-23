@@ -20,7 +20,7 @@
                         </li>
                     {% endif %}
                 
-                    {% if 'top-20' in request.path %}
+                    {% if '/top-20' in request.path %}
                         <li>
                             <a class="dropdown-item text-ashgray" href="{% url 'top-20' %}">
                                 <i class="fa-solid fa-arrow-right"></i> Top 20</a>
@@ -30,8 +30,18 @@
                             <a class="dropdown-item text-ashgray" href="{% url 'top-20' %}">Top 20</a>
                         </li>
                     {% endif %}
+
+                    {% if '/sla' in request.path %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'sla' %}">
+                                <i class="fa-solid fa-arrow-right"></i> SLA</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'sla' %}">SLA</a>
+                        </li>
+                    {% endif %}
                 
-                    <li><a class="dropdown-item text-ashgray" href="#">SLA</a></li>
                     <li><a class="dropdown-item text-ashgray" href="#">Priority</a></li>
                     <li><a class="dropdown-item text-ashgray" href="#">Load Factor</a></li>
                 </ul>

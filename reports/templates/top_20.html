@@ -8,7 +8,7 @@
         <span class="badge status-clear">To Be Cleared: {{ calculations.to_clear }}</span>
         <span class="badge status-on-hold">On Hold: {{ calculations.on_hold }}</span>
     </div>
-        <table class="table table-borderless table-striped table-hover" id="awb-table">
+        <table class="table table-borderless table-striped table-hover">
             <thead class="thead-light">
                 <tr>
                     <th>#</th>
@@ -48,9 +48,9 @@
                                 {% if 'jv' in awb.remarks.lower %}
                                     <td class="align-middle"><div class="status-going"><span>Going</span></div></td>
                                 {% elif 'clear' in awb.remarks.lower %}
-                                    <td class="align-middle"><div class="status-clear"><span>Going</span></div></td>
+                                    <td class="align-middle"><div class="status-clear"><span>Hold</span></div></td>
                                 {% elif 'hold' in awb.remarks.lower %}
-                                    <td class="align-middle"><div class="status-on-hold"><span>Going</span></div></td>
+                                    <td class="align-middle"><div class="status-on-hold"><span>Clearing</span></div></td>
                                 {% else %}
                                     <td></td>
                                 {% endif %}

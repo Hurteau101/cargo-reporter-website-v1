@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from .forms import UploaderForm, RemarkForm
 from .excel_utils import *
 from .database_utils import *
+from .common_data import *
 from .models import AWB
+
 
 # Create your views here.
 def report_importer(request):
@@ -36,12 +38,8 @@ def report_importer(request):
 
     return render(request, 'report_importer.html', context)
 
-def top_20(request):
-    destination_filter_list = [
-        "YTH", "YST", "YIV", "WGK", "YGO", "YOH", "YRS", "ZGI", "YNE", "YCR", "YBT", "ZTM", "YPM", "XLB", "XTL", "XSI",
-        "ZAC", "ZSJ"
-    ]
 
+def top_20(request):
     remark_form = RemarkForm()
 
     calculations = {
@@ -50,7 +48,8 @@ def top_20(request):
         "to_clear": AWB.objects.filter(sla_report=True, remarks__icontains="clear").count(),
     }
 
-    order_filter = AWB.objects.filter(sla_report=True, destination__in=destination_filter_list).order_by("-days").values()[:20]
+    order_filter = AWB.objects.filter(sla_report=True, destination__in=DESTINATION_FILTER_LIST).order_by(
+        "-days").values()[:20]
 
     if request.method == "POST":
         if "edit" in request.POST:
@@ -72,3 +71,25 @@ def top_20(request):
     }
 
     return render(request, 'top_20.html', context)
+
+
+def sla(request):
+    context = {
+        "past_sla_data": get_past_sla_data(DESTINATION_FILTER_LIST, station="WPG", hours=0),
+        "total_weight": get_total_weight(DESTINATION_FILTER_LIST, station="WPG", hours=0),
+    }
+
+    return render(request, 'sla_report.html', context)
+
+
+def destination_breakdown(request, destination):
+    breakdown = AWB.objects.filter(sla_report=True, destination__in=DESTINATION_FILTER_LIST,
+                                   destination=destination, hours_remaining__lt=0).values()
+
+    context = {
+        "past_sla_data": get_past_sla_data(DESTINATION_FILTER_LIST, station="WPG", hours=0),
+        "total_weight": get_total_weight(DESTINATION_FILTER_LIST, station="WPG", hours=0),
+        "breakdown": breakdown,
+    }
+
+    return render(request, 'sla_report.html', context)

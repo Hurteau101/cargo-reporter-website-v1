@@ -1,0 +1,33 @@
+<div class="text-left mb-3 mt-1">
+    &nbsp;&nbsp;
+</div>
+<table class="table table-borderless table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-white">Destination</th>
+            <th class="text-white">Past SLA</th>
+            <th class="text-white">Breakdown</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if not past_sla_data %}
+            <tr><td class="text-center" colspan="3">No Data</td></tr>
+        {% else %}
+            {% for sla_breakdown in past_sla_data %}
+            <tr>
+                <td>{{ sla_breakdown.destination }}</td>
+                <td>{{ sla_breakdown.total_weight }}</td>
+                <td><a href="{% url 'destination-breakdown' sla_breakdown.destination %}"><button class="btn bg-gray-color text-white">View</button></a></td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+        <tr><td colspan="3"></td></tr>
+        <tr class="mb-5">
+            <td colspan="3" class="text-center fw-bold text-white weight_header" style="background-color: #57739D;">Total Weight</td>
+        </tr>
+        <tr>
+            <td colspan="3" class="text-center">{{ total_weight|default_if_none:"No Data" }}</td>
+        </tr>
+    </tbody>
+</table>
+
