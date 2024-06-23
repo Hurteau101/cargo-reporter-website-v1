@@ -2,6 +2,77 @@
 {% block title %} Importer {% endblock %}
 {% block content %}
 
+<div class="container my-5">
+    {% include 'error_message.html' %}
 
+    <h1 class="fw-bold mb-4 text-ashgray-dark">Report Uploader</h1>
+    <div class="row gap-2">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-ashgray-light text-white">
+                    SLA/Top 20 Uploader
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        {{ field }}
+                        {% endfor %}
+{#                        {{ file.as_table }}#}
+{#                        {{ file.errors }}#}
+                        <button style="display: inline" class="btn bg-gray-color text-white mt-5 mt-lg-0" name="sla_top_20">
+                            Upload
+                        </button>
+                        <hr/>
+                        <p>Last Import Time: </p>
+                        <p>Last File Name: </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-ashgray-light text-white">
+                    Load Factor Uploader
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in file %}
+                        {{ field }}
+                        {% endfor %}
+                        <button style="display: inline" class="btn bg-gray-color text-white mt-5 mt-lg-0" name="load_factor_form">
+                            Upload
+                        </button>
+                        <hr/>
+                        <p>Last Import Time: </p>
+                        <p>Last File Name: </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-ashgray-light text-white">
+                    Priority AWBs Uploader
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in file %}
+                        {{ field }}
+                        {% endfor %}
+                        <button style="display: inline" class="btn bg-gray-color text-white mt-5 mt-lg-0">
+                            Upload
+                        </button>
+                        <hr/>
+                        <p>Last Import Time: </p>
+                        <p>Last File Name: </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
