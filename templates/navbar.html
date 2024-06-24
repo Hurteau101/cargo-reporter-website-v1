@@ -41,6 +41,17 @@
                             <a class="dropdown-item text-ashgray" href="{% url 'sla' %}">SLA</a>
                         </li>
                     {% endif %}
+
+                    {% if '/combined-report' in request.path %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'combined-report' %}">
+                                <i class="fa-solid fa-arrow-right"></i> Combined Report</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'combined-report' %}">Combined Report</a>
+                        </li>
+                    {% endif %}
                 
                     <li><a class="dropdown-item text-ashgray" href="#">Priority</a></li>
                     <li><a class="dropdown-item text-ashgray" href="#">Load Factor</a></li>

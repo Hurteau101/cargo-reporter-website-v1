@@ -1,0 +1,83 @@
+<table class="table table-borderless table-striped table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Station</th>
+            <th>Dest.</th>
+            <th>AWB</th>
+            <th>Desc.</th>
+            <th>Consignee</th>
+            <th>Pcs.</th>
+            <th>Weight</th>
+            <th>Days</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            {% if 'top-20' in request.path %}
+                <th>Modify</th>
+                <th>Tracker</th>
+                <th>Sent</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if not order_filter %}
+            <tr><td class="text-center" colspan="13">No Data</td></tr>
+        {% endif %}
+            {% for awb in order_filter %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="station" value="{{ filter_form.station.value }}">
+                    <input type="hidden" name="days" value="{{ filter_form.days.value }}">
+                    <tr>
+                        <td class="fw-bold align-middle">{{ forloop.counter }}</td>
+                        <td class="align-middle">{{ awb.origin }}</td>
+                        <td class="align-middle">{{ awb.destination }}</td>
+                        <td class="align-middle awb-number">{{ awb.awb_number }}</td>
+
+                        <td class="align-middle">
+                            {% if 'top-20' in request.path %}
+                                {{ awb.description }}
+                            {% else %}
+                                {{ awb.description|truncatechars_html:11 }}
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">
+                            {% if 'top-20' in request.path %}
+                                {{ awb.consignee }}
+                            {% else %}
+                                {{ awb.consignee|truncatechars_html:11 }}
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">{{ awb.pieces_on_hand }}</td>
+                        <td class="align-middle">{{ awb.weight_on_hand }}</td>
+                        <td class="align-middle">{{ awb.days }}</td>
+                        {% if 'jv' in awb.remarks.lower %}
+                            <td class="align-middle"><div class="status-going"><span>Going</span></div></td>
+                        {% elif 'clear' in awb.remarks.lower %}
+                            <td class="align-middle"><div class="status-clear"><span>Hold</span></div></td>
+                        {% elif 'hold' in awb.remarks.lower %}
+                            <td class="align-middle"><div class="status-on-hold"><span>Clearing</span></div></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if remark_form.instance.awb_number == awb.awb_number %}
+                            <td class="align-middle">
+                            {{ remark_form.remarks }}
+                            <input type="hidden" name="save" value="{{ awb.awb_number }}">
+                            </td>
+                            <td class="align-middle"><button type="submit" class="btn bg-gray-color text-white">Save</button></td>
+
+                        {% else %}
+                            <td class="align-middle">{{awb.remarks|default_if_none:""}}</td>
+                            {% if 'top-20' in request.path %}
+                                <td class="align-middle"><button type="submit" class="btn bg-gray-color text-white" name="edit" value="{{ awb.awb_number }}">Edit</button></td>
+{#                                ADD (ADD FOR WAYBILL AND SENT)#}
+
+                            {% endif %}
+                        {% endif %}
+                    </tr>
+                </form>
+            {% endfor %}
+    </tbody>
+</table>

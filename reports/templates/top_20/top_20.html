@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+{% block title %} Top 20 {% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="fw-bold text-ashgray-dark">Top 20 Report</h1>
+    <div class="text-left mb-4">
+        <span class="badge status-going mt-2">Going Today: {{ calculations.total_going }}</span>
+        <span class="badge status-clear">To Be Cleared: {{ calculations.to_clear }}</span>
+        <span class="badge status-on-hold">On Hold: {{ calculations.on_hold }}</span>
+    </div>
+    {% include 'top_20/top_20_table_data.html' %}
+</div>
+{% endblock %}
+

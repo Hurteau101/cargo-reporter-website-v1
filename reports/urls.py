@@ -6,4 +6,5 @@ urlpatterns = [
     path('top-20', views.top_20, name='top-20'),
     path('sla', views.sla, name='sla'),
     path('sla/destination-breakdown/<str:destination>', views.destination_breakdown, name='destination-breakdown'),
+    path('combined-report', views.combined_report, name='combined-report'),
 ]

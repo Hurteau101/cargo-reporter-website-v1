@@ -1,0 +1,122 @@
+{% extends 'main.html' %}
+{% block title %} Combined Report {% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="fw-bold text-ashgray-dark">Combined Reports</h1>
+    <div class="row">
+        <div class="col-xl-3">
+            {% include 'sla/sla_weight_table.html' %}
+        </div>
+        <div class="col-xl-9 overflow-auto">
+            <div class="text-left mb-3 mt-1">
+                &nbsp;
+            </div>
+            {% include 'top_20/top_20_table_data.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% block content %}#}
+{#<div class="container my-5">#}
+{#    <h1 class="fw-bold text-ashgray-dark">Combined Report</h1>#}
+{#    <div class="row">#}
+{#        <div class="col-xl-3">#}
+{#            <div class="text-left mb-3 mt-1">#}
+{#    &nbsp;          &nbsp;#}
+{#            </div>#}
+{#            <table class="table table-borderless table-striped">#}
+{#                <thead class="thead-light">#}
+{#                    <tr>#}
+{#                        <th class="text-white">Destination</th>#}
+{#                        <th class="text-white">Past SLA</th>#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                    {% if not past_sla_data %}#}
+{#                        <tr><td class="text-center" colspan="3">No Data</td></tr>#}
+{#                    {% else %}#}
+{#                        {% for sla_breakdown in past_sla_data %}#}
+{#                        <tr>#}
+{#                            <td>{{ sla_breakdown.destination }}</td>#}
+{#                            <td>{{ sla_breakdown.total_weight }}</td>#}
+{#                        </tr>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                    <tr><td colspan="3"></td></tr>#}
+{#                    <tr class="mb-5">#}
+{#                        <td colspan="3" class="text-center fw-bold text-white weight_header" style="background-color: #57739D;">Total Weight</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td colspan="3" class="text-center">{{ total_weight|default_if_none:"No Data" }}</td>#}
+{#                    </tr>#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
+{#        <div class="col-xl-9 overflow-auto">#}
+{#            <div class="text-left mb-3">#}
+{#                <span class="badge hidden-span">&nbsp;</span>#}
+{#            </div>#}
+{#                <table class="table table-borderless table-striped table-hover">#}
+{#                <thead class="thead-light">#}
+{#                    <tr>#}
+{#                        <th>#</th>#}
+{#                        <th>Dest.</th>#}
+{#                        <th>AWB</th>#}
+{#                        <th>Desc.</th>#}
+{#                        <th>Consignee</th>#}
+{#                        <th>Pcs.</th>#}
+{#                        <th>Weight</th>#}
+{#                        <th>Days</th>#}
+{#                        <th>Status</th>#}
+{#                        <th>Remarks</th>#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                    {% if not order_filter %}#}
+{#                        <tr><td class="text-center" colspan="13">No Data</td></tr>#}
+{#                    {% endif %}#}
+{#                        {% for awb in order_filter %}#}
+{#                            {% csrf_token %}#}
+{#                            <input type="hidden" name="station" value="{{ filter_form.station.value }}">#}
+{#                            <input type="hidden" name="days" value="{{ filter_form.days.value }}">#}
+{#                            <tr>#}
+{#                                <td class="fw-bold align-middle">{{ forloop.counter }}</td>#}
+{#                                <td class="align-middle">{{ awb.origin }}</td>#}
+{#                                <td class="align-middle awb-number">{{ awb.awb_number }}</td>#}
+{#                                <td class="align-middle">{{ awb.description|truncatechars_html:19 }}</td>#}
+{#                                <td class="align-middle">{{ awb.consignee|truncatechars_html:19 }}</td>#}
+{#                                <td class="align-middle">{{ awb.pieces_on_hand }}</td>#}
+{#                                <td class="align-middle">{{ awb.weight_on_hand }}</td>#}
+{#                                <td class="align-middle">{{ awb.days }}</td>#}
+{#                                {% if 'jv' in awb.remarks.lower %}#}
+{#                                    <td class="align-middle"><div class="status-going"><span>Going</span></div></td>#}
+{#                                {% elif 'clear' in awb.remarks.lower %}#}
+{#                                    <td class="align-middle"><div class="status-clear"><span>Hold</span></div></td>#}
+{#                                {% elif 'hold' in awb.remarks.lower %}#}
+{#                                    <td class="align-middle"><div class="status-on-hold"><span>Clearing</span></div></td>#}
+{#                                {% else %}#}
+{#                                    <td></td>#}
+{#                                {% endif %}#}
+{#                                <td class="align-middle">{{ awb.remarks }}</td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}

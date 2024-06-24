@@ -70,7 +70,7 @@ def top_20(request):
         "order_filter": order_filter,
     }
 
-    return render(request, 'top_20.html', context)
+    return render(request, 'top_20/top_20.html', context)
 
 
 def sla(request):
@@ -79,7 +79,7 @@ def sla(request):
         "total_weight": get_total_weight(DESTINATION_FILTER_LIST, station="WPG", hours=0),
     }
 
-    return render(request, 'sla_report.html', context)
+    return render(request, 'sla/sla_report.html', context)
 
 
 def destination_breakdown(request, destination):
@@ -90,6 +90,19 @@ def destination_breakdown(request, destination):
         "past_sla_data": get_past_sla_data(DESTINATION_FILTER_LIST, station="WPG", hours=0),
         "total_weight": get_total_weight(DESTINATION_FILTER_LIST, station="WPG", hours=0),
         "breakdown": breakdown,
+        "destination": destination,
     }
 
-    return render(request, 'sla_report.html', context)
+    return render(request, 'sla/sla_report.html', context)
+
+def combined_report(request):
+    order_filter = AWB.objects.filter(sla_report=True, destination__in=DESTINATION_FILTER_LIST).order_by(
+        "-days").values()[:20]
+
+    context = {
+        "past_sla_data": get_past_sla_data(DESTINATION_FILTER_LIST, station="WPG", hours=0),
+        "total_weight": get_total_weight(DESTINATION_FILTER_LIST, station="WPG", hours=0),
+        'order_filter': order_filter,
+    }
+
+    return render(request, 'combined_report.html', context)

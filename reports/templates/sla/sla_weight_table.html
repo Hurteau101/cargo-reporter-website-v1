@@ -4,9 +4,13 @@
 <table class="table table-borderless table-striped">
     <thead class="thead-light">
         <tr>
+            {% block table_headers %}
             <th class="text-white">Destination</th>
             <th class="text-white">Past SLA</th>
-            <th class="text-white">Breakdown</th>
+             {% if 'sla' in request.path %}
+                <th class="text-white">Breakdown</th>
+             {% endif %}
+            {% endblock %}
         </tr>
     </thead>
     <tbody>
@@ -17,7 +21,9 @@
             <tr>
                 <td>{{ sla_breakdown.destination }}</td>
                 <td>{{ sla_breakdown.total_weight }}</td>
-                <td><a href="{% url 'destination-breakdown' sla_breakdown.destination %}"><button class="btn bg-gray-color text-white">View</button></a></td>
+                {% if 'sla' in request.path %}
+                    <td><a href="{% url 'destination-breakdown' sla_breakdown.destination %}"><button class="btn bg-gray-color text-white">View</button></a></td>
+                {% endif %}
             </tr>
             {% endfor %}
         {% endif %}
