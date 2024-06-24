@@ -54,7 +54,7 @@
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_table }}
-                        <button style="display: inline" class="btn bg-gray-color text-white mt-5 mt-lg-0">
+                        <button style="display: inline" class="btn bg-gray-color text-white mt-5 mt-lg-0" name="priority">
                             Upload
                         </button>
                         <hr/>

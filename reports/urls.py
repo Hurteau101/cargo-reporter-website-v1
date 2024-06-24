@@ -7,4 +7,5 @@ urlpatterns = [
     path('sla', views.sla, name='sla'),
     path('sla/destination-breakdown/<str:destination>', views.destination_breakdown, name='destination-breakdown'),
     path('combined-report', views.combined_report, name='combined-report'),
+    path('priority-report', views.priority_report, name='priority-report'),
 ]

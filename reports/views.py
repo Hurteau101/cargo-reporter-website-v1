@@ -1,36 +1,25 @@
 from django.shortcuts import render, redirect
-from .forms import UploaderForm, RemarkForm
-from .excel_utils import *
-from .database_utils import *
+from .forms import RemarkForm
 from .common_data import *
+from .file_utils import *
 from .models import AWB
 
-
-# Create your views here.
 def report_importer(request):
     form = UploaderForm()
     error_message = None
 
-    if request.method == "POST":
+    if request.method == 'POST':
         if "sla_top_20" in request.POST:
-            file = UploaderForm(request.POST, request.FILES)
-            file_name = request.FILES.get('file')
-            if file.is_valid():
-                read_file = request.FILES['file']
-                valid_report, data = extract_waybills_to_ship_file(read_file)
-                if valid_report:
-                    sla_top_20_save(data)
-                    return redirect('top-20')
-                else:
-                    error_message = (f"{file_name} - Wrong Report. Please ensure this is either "
-                                     f"Waybills to Ship or Bot Report")
-            else:
-                "File extension “png” is not allowed. Allowed extensions are: xlsx."
-                if "".join(file.errors['file'].as_data()[0]) == "The submitted file is empty.":
-                    error_message = (f'{file_name} - File extension "{file_name.name.split(".")[-1]}" is not allowed. '
-                                     f'Allowed extensions are: xlsx."')
-                else:
-                    error_message = f"{file_name} - {''.join(([error for error in file.errors['file'].as_data()][0]))}"
+            success, error_message = handle_file_upload(request ,read_excel_function=extract_waybills_to_ship_file,
+                                                        save_function=sla_top_20_save)
+            if success:
+                return redirect("top-20")
+        elif 'priority' in request.POST:
+            success, error_message = handle_file_upload(request ,read_excel_function=extract_waybills_to_ship_file,
+                                                        save_function=priority_save)
+            if success:
+                return redirect("priority-report")
+
     else:
         form = UploaderForm()
 
@@ -106,3 +95,12 @@ def combined_report(request):
     }
 
     return render(request, 'combined_report.html', context)
+
+
+def priority_report(request):
+
+    context = {
+
+    }
+
+    return render(request, "priority_report.html", context)

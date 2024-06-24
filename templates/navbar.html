@@ -52,8 +52,18 @@
                             <a class="dropdown-item text-ashgray" href="{% url 'combined-report' %}">Combined Report</a>
                         </li>
                     {% endif %}
-                
-                    <li><a class="dropdown-item text-ashgray" href="#">Priority</a></li>
+
+                    {% if '/priority-report' in request.path %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'priority-report' %}">
+                                <i class="fa-solid fa-arrow-right"></i> Priority</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="dropdown-item text-ashgray" href="{% url 'priority-report' %}">Priority</a>
+                        </li>
+                    {% endif %}
+
                     <li><a class="dropdown-item text-ashgray" href="#">Load Factor</a></li>
                 </ul>
             </li>
