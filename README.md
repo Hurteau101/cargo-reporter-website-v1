@@ -21,7 +21,7 @@ A Django web application for tracking cargo Service Level Agreements (SLAs) and 
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/cargo-report-website.git
+git clone [https://github.com/your-username/cargo-report-website.git](https://github.com/Hurteau101/cargo-reporter-website-v1)
 cd cargo-report-website
 
 # Create and activate a virtual environment
